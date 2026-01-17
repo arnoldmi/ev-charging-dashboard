@@ -1,7 +1,13 @@
+// src/components/StatsSummary.tsx
 import React from 'react';
-import { Card } from './Card';
-import { StatBlock } from './StatBlock';
-import { FaBolt, FaEuroSign, FaCar, FaPiggyBank } from 'react-icons/fa6';
+import { Box, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import {
+  BatteryChargingFull as BatteryIcon,
+  Euro as EuroIcon,
+  TrendingDown as TrendingDownIcon,
+} from '@mui/icons-material';
+import { StatCard } from './MD3Components';
 
 interface StatsSummaryProps {
   avgConsumption: number;
@@ -10,53 +16,56 @@ interface StatsSummaryProps {
 }
 
 const StatsSummary: React.FC<StatsSummaryProps> = ({
-  avgConsumption,
-  avgCostPerKwh,
-  avgCostPerKm,
+  avgConsumption = 0,
+  avgCostPerKwh = 0,
+  avgCostPerKm = 0,
 }) => {
-  console.log("Props reçues :", { avgConsumption, avgCostPerKwh, avgCostPerKm });
-
-  // Convertir explicitement les valeurs en nombres
-  const consumption = typeof avgConsumption === 'number' ? avgConsumption : 0;
-  const costPerKwh = typeof avgCostPerKwh === 'number' ? avgCostPerKwh : 0;
-  const costPerKm = typeof avgCostPerKm === 'number' ? avgCostPerKm : 0;
+  // Conversion explicite en nombres pour éviter les erreurs
+  const safeAvgConsumption = Number(avgConsumption) || 0;
+  const safeAvgCostPerKwh = Number(avgCostPerKwh) || 0;
+  const safeAvgCostPerKm = Number(avgCostPerKm) || 0;
 
   return (
-    <div style={{ marginBottom: '30px' }}>
-      <h2 style={{ marginBottom: '20px' }}>Stats consommation ...</h2>
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <div style={{ padding: '20px' }}>
-            <Card title="">
-              <StatBlock
-                icon={<FaBolt />}
-                label="Consommation moyenne"
-                value={`${consumption.toFixed(2)} kWh/100 km`}
-                color="#ffb74d"
-              />
-            </Card>
-          </div>
-          <div style={{ padding: '20px' }}>
-            <Card title="">
-              <StatBlock
-                icon={<FaEuroSign />}
-                label="Coût moyen par kWh"
-                value={`${costPerKwh.toFixed(3)} €`}
-                color="#4caf50"
-              />
-            </Card>
-          </div>
-          <div style={{ padding: '20px' }}>
-            <Card title="">
-              <StatBlock
-                icon={<FaEuroSign />}
-                label="Coût moyen par km"
-                value={`${costPerKm.toFixed(3)} €`}
-                color="#4caf50"
-              />
-            </Card>
-          </div>
-        </div>
-    </div>
+    <Box sx={{ mb: 4 }}>
+      <Typography variant="h5" sx={{ mb: 2, fontWeight: 500 }}>
+        Moyennes
+      </Typography>
+
+      <Grid container spacing={2}>
+        <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+          <StatCard
+            icon={<BatteryIcon />}
+            title="Consommation moyenne"
+            value={safeAvgConsumption.toFixed(2)}
+            unit="kWh/100km"
+            color="#FFB74D"
+            variant="elevated"
+          />
+        </Grid>
+
+        <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+          <StatCard
+            icon={<EuroIcon />}
+            title="Coût moyen par kWh"
+            value={safeAvgCostPerKwh.toFixed(3)}
+            unit="€/kWh"
+            color="#CF6679"
+            variant="elevated"
+          />
+        </Grid>
+
+        <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+          <StatCard
+            icon={<TrendingDownIcon />}
+            title="Coût moyen par km"
+            value={safeAvgCostPerKm.toFixed(3)}
+            unit="€/km"
+            color="#81C784"
+            variant="elevated"
+          />
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 

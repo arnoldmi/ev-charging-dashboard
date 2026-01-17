@@ -1,8 +1,15 @@
+// src/components/CumulativeStats.tsx
 import React from 'react';
-import { Card } from './Card';
-import { StatBlock } from './StatBlock';
-import { FaBolt, FaEuroSign, FaCar, FaPiggyBank, FaCarSide, FaChargingStation } from 'react-icons/fa6';
-import { FaMoneyBillWave } from 'react-icons/fa';
+import { Box, Typography } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import {
+  DirectionsCar as CarIcon,
+  Route as RouteIcon,
+  BatteryChargingFull as BatteryIcon,
+  Euro as EuroIcon,
+  EvStation as ChargingStationIcon,
+} from '@mui/icons-material';
+import { StatCard } from './MD3Components';
 
 interface CumulativeStatsProps {
   totalMileage: number;
@@ -27,61 +34,67 @@ const CumulativeStats: React.FC<CumulativeStatsProps> = ({
   const safeCharges = Number(totalCharges) || 0;
 
   return (
-    <div style={{ marginBottom: '30px' }}>
-      <h2 style={{ marginBottom: '20px' }}>Statistiques cumulatives ...</h2>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <div style={{ padding: '20px' }}>
-        <Card title="">
-          <StatBlock
-            icon={<FaCarSide />}
-            label="Kilométrage actuel"
-            value={`${safeMileage.toLocaleString()} km`}
+    <Box sx={{ mb: 4 }}>
+      <Typography variant="h5" sx={{ mb: 2, fontWeight: 500 }}>
+        Statistiques cumulatives
+      </Typography>
+
+      <Grid container spacing={2}>
+        <Grid size={{ xs: 12, sm: 6, md: 4, lg: 2.4 }}>
+          <StatCard
+            icon={<CarIcon />}
+            title="Kilométrage actuel"
+            value={safeMileage.toLocaleString('fr-FR')}
+            unit="km"
             color="#64b5f6"
+            variant="elevated"
           />
-        </Card>
-      </div>
-      <div style={{ padding: '20px' }}>
-        <Card title="">
-          <StatBlock
-            icon={<FaCar />}
-            label="Kilométrage total (calculé)"
-            value={`${safeDistance.toLocaleString()} km`}
+        </Grid>
+
+        <Grid size={{ xs: 12, sm: 6, md: 4, lg: 2.4 }}>
+          <StatCard
+            icon={<RouteIcon />}
+            title="Kilométrage total (calculé)"
+            value={safeDistance.toLocaleString('fr-FR')}
+            unit="km"
             color="#bb86fc"
+            variant="elevated"
           />
-        </Card>
-      </div>
-      <div style={{ padding: '20px' }}>
-        <Card title="">
-          <StatBlock
-            icon={<FaBolt />}
-            label="Énergie totale consommée"
-            value={`${safeKwh.toFixed(2)} kWh`}
+        </Grid>
+
+        <Grid size={{ xs: 12, sm: 6, md: 4, lg: 2.4 }}>
+          <StatCard
+            icon={<BatteryIcon />}
+            title="Énergie totale consommée"
+            value={safeKwh.toFixed(2)}
+            unit="kWh"
             color="#ffb74d"
+            variant="elevated"
           />
-        </Card>
-      </div>
-      <div style={{ padding: '20px' }}>
-        <Card title="">
-          <StatBlock
-            icon={<FaMoneyBillWave />}
-            label="Coût total"
-            value={`${safeCost.toFixed(2)} €`}
+        </Grid>
+
+        <Grid size={{ xs: 12, sm: 6, md: 4, lg: 2.4 }}>
+          <StatCard
+            icon={<EuroIcon />}
+            title="Coût total"
+            value={safeCost.toFixed(2)}
+            unit="€"
             color="#ffa89dda"
+            variant="elevated"
           />
-        </Card>
-      </div>
-      <div style={{ padding: '20px' }}>
-        <Card title="">
-          <StatBlock
-            icon={<FaChargingStation />}
-            label="Nombre de recharges"
-            value={`${safeCharges}`}
-            color="#ffb74d"
+        </Grid>
+
+        <Grid size={{ xs: 12, sm: 6, md: 4, lg: 2.4 }}>
+          <StatCard
+            icon={<ChargingStationIcon />}
+            title="Nombre de recharges"
+            value={safeCharges}
+            color="#4CAF50"
+            variant="elevated"
           />
-        </Card>
-      </div>
-      </div>
-    </div>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 

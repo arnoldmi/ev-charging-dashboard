@@ -2,10 +2,10 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ChargeForm from '../components/ChargeForm';
-import { Card } from '../components/Card';
 import { FaBolt, FaEuroSign, FaCar, FaPiggyBank } from 'react-icons/fa';
-import { globalStyles } from '../styles/GlobalStyle';
 import { UserPreferencesContext } from '../context/UserPreferencesContext';
+import theme from '../styles/theme';
+import { Card, CardContent } from '@mui/material';
 
 interface Charge {
   id: number;
@@ -32,8 +32,10 @@ const AddChargePage = () => {
     };
   const preferencesLoading = context?.loading;
 
-  const [userId, setUserId] = useState<number | null>(1); // Remplace par l'ID dynamique de l'utilisateur
-  const [vehicleId, setVehicleId] = useState<number | null>(1); // Remplace par l'ID dynamique du véhicule
+  //const [userId, setUserId] = useState<number | null>(1); // Remplace par l'ID dynamique de l'utilisateur
+  const userId = preferences.userId;
+  //const [vehicleId, setVehicleId] = useState<number | null>(1); // Remplace par l'ID dynamique du véhicule
+  const vehicleId = preferences.vehicleId;
   const [charges, setCharges] = useState<Charge[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -66,15 +68,17 @@ const AddChargePage = () => {
   return (
     <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
       {/* Titre */}
-      <h1 style={globalStyles.typography.h1}>
+      <h1 style={theme.typography.h1}>
         Ajouter une recharge
       </h1>
 
       {userId && vehicleId && (
       <>
         {/* Formulaire de recharge */}
-        <Card>
-          <ChargeForm userId={userId} vehicleId={vehicleId} />
+        <Card variant="filled" sx={{ mb: 3 }}>
+          <CardContent>
+            <ChargeForm userId={userId} vehicleId={vehicleId} />
+          </CardContent>
         </Card>
 
         {/* Tableau des recharges précédentes */}
