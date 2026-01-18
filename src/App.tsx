@@ -32,6 +32,7 @@ import HomePage from './pages/HomePage';
 import AddUserVehiclePage from './pages/AddUserVehiclePage';
 import AddChargePage from './pages/AddChargePage';
 import PreferencesPage from './pages/PreferencesPage';
+import ManageUsersVehiclesPage from './pages/ManageUsersVehiclesPage';
 
 const drawerWidth = 280;
 
@@ -40,7 +41,8 @@ const navigationItems = [
   { text: 'Accueil', icon: <HomeIcon />, path: '/' },
   { text: 'Ajouter une recharge', icon: <BatteryIcon />, path: '/add-charge' },
   { text: 'Choisir la voiture', icon: <CarIcon />, path: '/preferences' },
-  { text: 'Ajouter Utilisateur/Véhicule', icon: <PersonAddIcon />, path: '/add-user-vehicle' },
+  { text: 'Gérer utilisateurs/véhicules', icon: <SettingsIcon />, path: '/manage' },
+  { text: 'Ajouter utilisateur/véhicule', icon: <PersonAddIcon />, path: '/add-user-vehicle' },
 ];
 
 // Composant de navigation
@@ -172,6 +174,7 @@ const AppContent: React.FC = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/add-charge" element={<AddChargePage />} />
             <Route path="/preferences" element={<PreferencesPage />} />
+            <Route path="/manage" element={<ManageUsersVehiclesPage />} />
             <Route path="/add-user-vehicle" element={<AddUserVehiclePage />} />
           </Routes>
         </Container>

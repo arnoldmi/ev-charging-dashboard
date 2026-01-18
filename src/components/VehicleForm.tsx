@@ -23,9 +23,10 @@ import {
 
 interface VehicleFormProps {
   userId: number;
+  onVehicleCreated?: () => void;
 }
 
-const VehicleForm: React.FC<VehicleFormProps> = ({ userId }) => {
+const VehicleForm: React.FC<VehicleFormProps> = ({ userId, onVehicleCreated }) => {
   const [formData, setFormData] = useState({
     model: 'Volkswagen ID.3',
     batteryCapacity: '77',
@@ -69,6 +70,11 @@ const VehicleForm: React.FC<VehicleFormProps> = ({ userId }) => {
       });
 
       console.log(response.data);
+      
+      // Appeler le callback si fourni
+      if (onVehicleCreated) {
+        onVehicleCreated();
+      }
     } catch (error) {
       console.error(error);
       setSnackbar({

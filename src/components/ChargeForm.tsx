@@ -3,7 +3,15 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import axiosInstance from '../config/axios';
 import {
-  Box, Card, CardContent, TextField, Button, Typography, Alert, Snackbar, InputAdornment,
+  Box,
+  Card,
+  CardContent,
+  TextField,
+  Button,
+  Typography,
+  Alert,
+  Snackbar,
+  InputAdornment,
 } from '@mui/material';
 import {
   BatteryChargingFull as BatteryIcon,
@@ -17,9 +25,10 @@ import {
 interface ChargeFormProps {
   userId: number;
   vehicleId: number;
+  onChargeAdded?: () => void;
 }
 
-const ChargeForm: React.FC<ChargeFormProps> = ({ userId, vehicleId }) => {
+const ChargeForm: React.FC<ChargeFormProps> = ({ userId, vehicleId, onChargeAdded }) => {
   const [formData, setFormData] = useState({
     date: new Date().toISOString().split('T')[0],
     kwh: '',
@@ -74,6 +83,11 @@ const ChargeForm: React.FC<ChargeFormProps> = ({ userId, vehicleId }) => {
         mileage: '',
         location: '',
       });
+      
+      // Appeler le callback si fourni
+      if (onChargeAdded) {
+        onChargeAdded();
+      }
     } catch (error) {
       console.error(error);
       setSnackbar({

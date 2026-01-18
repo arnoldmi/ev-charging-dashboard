@@ -87,8 +87,9 @@ const PreferencesPage: React.FC = () => {
     if (selectedUser) {
       const fetchUserVehicles = async () => {
         try {
+          // Utiliser le nouvel endpoint avec userId dans le path
           const response = await axiosInstance.get(
-            `/api/vehicles?userId=${selectedUser}`
+            `/api/vehicles/user/${selectedUser}`
           );
           setVehicles(response.data);
         } catch (error) {
