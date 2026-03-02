@@ -1,6 +1,7 @@
 // src/context/UserPreferencesContext.tsx
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import axios from 'axios';
+import axiosInstance from '../config/axios';
 
 interface UserPreferences {
   userId: number;
@@ -28,12 +29,13 @@ export const UserPreferencesProvider: React.FC<{ children: ReactNode }> = ({ chi
     vehicleColor: 'Bleu Côte d\'Azur',
   });
   const [loading, setLoading] = useState(true);
+  const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
   // Récupérer les préférences utilisateur au chargement
   useEffect(() => {
     const fetchPreferences = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/preferences', {});
+        const response = await axiosInstance.get(`/api/preferences`, {});
         setPreferences({
           userId: response.data.user_id || 1,
           userName: response.data.user_name || 'Arnold MONGO IBARA',

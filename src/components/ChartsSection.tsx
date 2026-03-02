@@ -1,6 +1,7 @@
 // src/components/ChartsSection.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import axiosInstance from '../config/axios';
 import { Box, Typography, Card, CardContent, CircularProgress } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import {
@@ -53,8 +54,12 @@ const ChartsSection: React.FC<ChartsSectionProps> = ({ userId, vehicleId }) => {
     currentMonthName: '',
     previousMonthName: '',
   });
-  const [locationData, setLocationData] = useState<LocationData[]>([]);
+  const [locationData, setLocationData] = useState<LocationData[]>([
+    {location: "Paris", count: 0, totalKwh: 0}
+  ]);
   const [loading, setLoading] = useState(true);
+  const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
+
 
   useEffect(() => {
     const fetchChartData = async () => {
@@ -62,14 +67,14 @@ const ChartsSection: React.FC<ChartsSectionProps> = ({ userId, vehicleId }) => {
         setLoading(true);
 
         // Récupérer les données des recharges mensuelles
-        const monthlyResponse = await axios.get(
-          `http://localhost:3001/api/stats/monthly-charges`,
+        const monthlyResponse = await axiosInstance.get(
+          `/api/stats/monthly-charges`,
           { params: { userId, vehicleId } }
         );
 
         // Récupérer les données par localisation
-        const locationResponse = await axios.get(
-          `http://localhost:3001/api/stats/charges-by-location`,
+        const locationResponse = await axiosInstance.get(
+          `/api/stats/charges-by-location`,
           { params: { userId, vehicleId } }
         );
 

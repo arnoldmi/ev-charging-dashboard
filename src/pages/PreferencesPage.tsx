@@ -1,6 +1,7 @@
 // src/pages/PreferencesPage.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import axiosInstance from '../config/axios';
 import { useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -57,13 +58,15 @@ const PreferencesPage: React.FC = () => {
   });
 
   const navigate = useNavigate();
+  const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
+
 
   // Récupérer les utilisateurs au chargement
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         setLoading(true);
-        const usersResponse = await axios.get('http://localhost:3001/api/users');
+        const usersResponse = await axiosInstance.get(`/api/users`);
         setUsers(usersResponse.data);
       } catch (error) {
         console.error('Erreur lors de la récupération des utilisateurs:', error);
@@ -84,8 +87,8 @@ const PreferencesPage: React.FC = () => {
     if (selectedUser) {
       const fetchUserVehicles = async () => {
         try {
-          const response = await axios.get(
-            `http://localhost:3001/api/vehicles?userId=${selectedUser}`
+          const response = await axiosInstance.get(
+            `/api/vehicles?userId=${selectedUser}`
           );
           setVehicles(response.data);
         } catch (error) {
@@ -109,8 +112,8 @@ const PreferencesPage: React.FC = () => {
     if (selectedUser) {
       const fetchPreferences = async () => {
         try {
-          const response = await axios.get(
-            `http://localhost:3001/api/preferences?userId=${selectedUser}`
+          const response = await axiosInstance.get(
+            `/api/preferences?userId=${selectedUser}`
           );
           const preferences = response.data;
           if (preferences.selected_vehicle_id) {
@@ -148,7 +151,7 @@ const PreferencesPage: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      await axios.post('http://localhost:3001/api/preferences', {
+      await axiosInstance.post(`/api/preferences`, {
         userId: selectedUser,
         selectedVehicleId: selectedVehicle,
       });

@@ -1,6 +1,7 @@
 // src/components/ChargeForm.tsx
 import React, { useState } from 'react';
 import axios from 'axios';
+import axiosInstance from '../config/axios';
 import {
   Box, Card, CardContent, TextField, Button, Typography, Alert, Snackbar, InputAdornment,
 } from '@mui/material';
@@ -42,13 +43,14 @@ const ChargeForm: React.FC<ChargeFormProps> = ({ userId, vehicleId }) => {
       [name]: value,
     });
   };
+  const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      await axios.post('http://localhost:3001/api/charges', {
+      await axiosInstance.post(`/api/charges`, {
         userId,
         vehicleId,
         date: formData.date,

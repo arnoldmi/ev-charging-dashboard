@@ -1,6 +1,7 @@
 // src/components/VehicleForm.tsx
 import React, { useState } from 'react';
 import axios from 'axios';
+import axiosInstance from '../config/axios';
 import {
   Box,
   Card,
@@ -31,6 +32,7 @@ const VehicleForm: React.FC<VehicleFormProps> = ({ userId }) => {
     range: '400',
     color: 'Bleu Côte d\'Azur',
   });
+  
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -43,13 +45,16 @@ const VehicleForm: React.FC<VehicleFormProps> = ({ userId }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      const response = await axios.post('http://localhost:3001/api/vehicles', {
+      const response = await axiosInstance.post(
+        `/api/vehicles`, 
+        {
         userId,
         model: formData.model,
         batteryCapacity: parseInt(formData.batteryCapacity),

@@ -1,6 +1,7 @@
 // src/pages/HomePage.tsx
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import axiosInstance from '../config/axios';
 import {
   Box,
   Typography,
@@ -62,6 +63,7 @@ const HomePage: React.FC = () => {
   });
 
   const [loading, setLoading] = useState(true);
+  const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
   useEffect(() => {
     if (preferencesLoading) return;
@@ -70,10 +72,10 @@ const HomePage: React.FC = () => {
       try {
         setLoading(true);
         const [statsResponse, cumulativeResponse] = await Promise.all([
-          axios.get('http://localhost:3001/api/stats/global', {
+          axiosInstance.get(`/api/stats/global`, {
             params: { userId: preferences.userId, vehicleId: preferences.vehicleId },
           }),
-          axios.get('http://localhost:3001/api/stats/cumulative', {
+          axiosInstance.get(`/api/stats/cumulative`, {
             params: { userId: preferences.userId, vehicleId: preferences.vehicleId },
           }),
         ]);

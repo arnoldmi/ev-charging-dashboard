@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import axiosInstance from '../config/axios';
 
 interface Vehicle {
   id?: number;
@@ -26,12 +27,13 @@ const SettingsPage = ({ userId }: { userId: number }) => {
     electricityPrice: 0.18, // Prix par défaut en €/kWh
     alertThreshold: 20,    // Seuil par défaut à 20%
   });
+  const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
   // Charger les données existantes (si le véhicule est déjà enregistré)
   useEffect(() => {
     const fetchVehicle = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/api/vehicles?userId=${userId}`);
+        const response = await axiosInstance.get(`/api/vehicles?userId=${userId}`);
         if (response.data.length > 0) {
           setVehicle(response.data[0]);
         }
@@ -55,9 +57,9 @@ const SettingsPage = ({ userId }: { userId: number }) => {
     try {
       // Enregistrer ou mettre à jour le véhicule
       if (vehicle.id) {
-        await axios.put(`http://localhost:3001/api/vehicles/${vehicle.id}`, { userId, ...vehicle });
+        await axiosInstance.put(`/api/vehicles/${vehicle.id}`, { userId, ...vehicle });
       } else {
-        const response = await axios.post('http://localhost:3001/api/vehicles', { userId, ...vehicle });
+        const response = await axiosInstance.post(`/api/vehicles`, { userId, ...vehicle });
         setVehicle({ ...vehicle, id: response.data.id }); // Met à jour l'ID du véhicule
       }
       // Enregistrer les préférences (à implémenter côté back-end)

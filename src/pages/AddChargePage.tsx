@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import axiosInstance from '../config/axios';
 import ChargeForm from '../components/ChargeForm';
 import { FaBolt, FaEuroSign, FaCar, FaPiggyBank } from 'react-icons/fa';
 import { UserPreferencesContext } from '../context/UserPreferencesContext';
@@ -39,6 +40,7 @@ const AddChargePage = () => {
   const [charges, setCharges] = useState<Charge[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
   // Récupérer les recharges précédentes
   useEffect(() => {
@@ -47,7 +49,7 @@ const AddChargePage = () => {
 
     const fetchCharges = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/charges', {
+        const response = await axiosInstance.get(`/api/charges`, {
           params: { userId: preferences.userId, vehicleId: preferences.vehicleId },
         });
         // Trier les recharges de la plus récente à la plus ancienne

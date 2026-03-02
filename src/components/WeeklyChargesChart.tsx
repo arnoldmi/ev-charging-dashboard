@@ -1,6 +1,7 @@
 // src/components/WeeklyChargesChart.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import axiosInstance from '../config/axios';
 import {
   Box,
   Typography,
@@ -56,13 +57,15 @@ const WeeklyChargesChart: React.FC<WeeklyChargesChartProps> = ({ userId, vehicle
   const [loading, setLoading] = useState(true);
   const [chartType, setChartType] = useState<'line' | 'bar'>('line');
   const [weeksToShow, setWeeksToShow] = useState<number>(8);
+  const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
+
 
   useEffect(() => {
     const fetchWeeklyData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(
-          `http://localhost:3001/api/stats/weekly-charges`,
+        const response = await axiosInstance.get(
+          `/api/stats/weekly-charges`,
           { params: { userId, vehicleId, weeks: weeksToShow } }
         );
         setWeeklyData(response.data);
