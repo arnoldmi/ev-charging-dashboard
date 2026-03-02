@@ -1,6 +1,6 @@
 {
   "name": "ev-charging-dashboard",
-  "version": "0.2603.1",
+  "version": "0.2604.1",
   "private": true,
   "homepage": ".",
   "dependencies": {
