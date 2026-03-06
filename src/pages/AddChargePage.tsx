@@ -1,6 +1,5 @@
 // src/pages/AddChargePage.tsx
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
 import axiosInstance from '../config/axios';
 import ChargeForm from '../components/ChargeForm';
 

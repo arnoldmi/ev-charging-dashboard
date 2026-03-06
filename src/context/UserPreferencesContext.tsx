@@ -1,6 +1,5 @@
 // src/context/UserPreferencesContext.tsx
 import React, { createContext, useState, useEffect, ReactNode } from 'react';
-import axios from 'axios';
 import axiosInstance from '../config/axios';
 
 interface UserPreferences {
@@ -29,7 +28,6 @@ export const UserPreferencesProvider: React.FC<{ children: ReactNode }> = ({ chi
     vehicleColor: 'Bleu Côte d\'Azur',
   });
   const [loading, setLoading] = useState(true);
-  const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
   // Récupérer les préférences utilisateur au chargement
   useEffect(() => {

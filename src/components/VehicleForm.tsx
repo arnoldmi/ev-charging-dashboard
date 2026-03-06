@@ -1,6 +1,5 @@
 // src/components/VehicleForm.tsx
 import React, { useState } from 'react';
-import axios from 'axios';
 import axiosInstance from '../config/axios';
 import {
   Box,
@@ -46,7 +45,6 @@ const VehicleForm: React.FC<VehicleFormProps> = ({ userId, onVehicleCreated }) =
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

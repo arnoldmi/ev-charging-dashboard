@@ -1,6 +1,5 @@
 // src/components/ChartsSection.tsx
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import axiosInstance from '../config/axios';
 import { Box, Typography, Card, CardContent, CircularProgress } from '@mui/material';
 import Grid from '@mui/material/Grid';
@@ -58,8 +57,7 @@ const ChartsSection: React.FC<ChartsSectionProps> = ({ userId, vehicleId }) => {
     {location: "Paris", count: 0, totalKwh: 0}
   ]);
   const [loading, setLoading] = useState(true);
-  const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
-
+ 
 
   useEffect(() => {
     const fetchChartData = async () => {

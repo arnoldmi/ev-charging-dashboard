@@ -1,6 +1,5 @@
 // src/components/ChargeForm.tsx
 import React, { useState } from 'react';
-import axios from 'axios';
 import axiosInstance from '../config/axios';
 import {
   Box,
@@ -52,7 +51,7 @@ const ChargeForm: React.FC<ChargeFormProps> = ({ userId, vehicleId, onChargeAdde
       [name]: value,
     });
   };
-  const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

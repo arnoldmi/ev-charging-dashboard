@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import axiosInstance from '../config/axios';
 
 interface Vehicle {
@@ -27,7 +26,6 @@ const SettingsPage = ({ userId }: { userId: number }) => {
     electricityPrice: 0.18, // Prix par défaut en €/kWh
     alertThreshold: 20,    // Seuil par défaut à 20%
   });
-  const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
   // Charger les données existantes (si le véhicule est déjà enregistré)
   useEffect(() => {

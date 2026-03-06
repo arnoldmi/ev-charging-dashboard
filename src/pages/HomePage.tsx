@@ -1,6 +1,5 @@
 // src/pages/HomePage.tsx
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
 import axiosInstance from '../config/axios';
 import {
   Box,
@@ -63,7 +62,6 @@ const HomePage: React.FC = () => {
   });
 
   const [loading, setLoading] = useState(true);
-  const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 
   useEffect(() => {
     if (preferencesLoading) return;

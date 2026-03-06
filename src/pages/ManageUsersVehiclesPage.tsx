@@ -1,6 +1,6 @@
 // src/pages/ManageUsersVehiclesPage.tsx
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../config/axios';
 import {
   Box,
   Typography,
@@ -90,8 +90,8 @@ const ManageUsersVehiclesPage: React.FC = () => {
     try {
       setLoading(true);
       const [usersResponse, vehiclesResponse] = await Promise.all([
-        axios.get('http://localhost:3001/api/users'),
-        axios.get('http://localhost:3001/api/vehicles'),
+        axiosInstance.get('/api/users'),
+        axiosInstance.get('/api/vehicles'),
       ]);
       
       console.log('Users:', usersResponse.data);
@@ -177,7 +177,7 @@ const ManageUsersVehiclesPage: React.FC = () => {
     if (!deleteDialog.id) return;
 
     try {
-      await axios.delete(`http://localhost:3001/api/users/${deleteDialog.id}`);
+      await axiosInstance.delete(`/api/users/${deleteDialog.id}`);
       setSnackbar({
         open: true,
         message: 'Utilisateur supprimé avec succès.',
@@ -200,7 +200,7 @@ const ManageUsersVehiclesPage: React.FC = () => {
     if (!deleteDialog.id) return;
 
     try {
-      await axios.delete(`http://localhost:3001/api/vehicles/${deleteDialog.id}`);
+      await axiosInstance.delete(`/api/vehicles/${deleteDialog.id}`);
       setSnackbar({
         open: true,
         message: 'Véhicule supprimé avec succès.',
