@@ -27,7 +27,7 @@ const StatsSummary: React.FC<StatsSummaryProps> = ({
 
   return (
     <Box sx={{ mb: 4 }}>
-      <Typography variant="h5" sx={{ mb: 2, fontWeight: 500 }}>
+      <Typography variant="h4" sx={{ mb: 2, fontWeight: 500 }}>
         Moyennes
       </Typography>
 

@@ -108,7 +108,7 @@ const HomePage: React.FC = () => {
   return (
     <Fade in={true} timeout={600}>
       <Box>
-        <Typography variant="h3" sx={{ mb: 3, fontWeight: 500 }}>
+        <Typography variant="h2" sx={{ mb: 3, fontWeight: 500 }}>
           Tableau de bord
         </Typography>
 
@@ -144,8 +144,8 @@ const HomePage: React.FC = () => {
             Rappel PEE - {preferences.userName}
           </AlertTitle>
           <Typography variant="body2" sx={{ mb: 1 }}>
-            Vous pouvez utiliser les <strong>5000€ de votre PEE en 2025</strong> (et{' '}
-            <strong>6000€ en 2026</strong>) pour financer des projets liés à votre{' '}
+            Vous pouvez utiliser les <strong>150 000€ de votre PEE en 2028</strong> (et{' '}
+            <strong>176 000€ en 2030</strong>) pour financer des projets liés à votre{' '}
             {preferences.vehicleModel}.
           </Typography>
           <Typography variant="caption" color="text.secondary">
